@@ -3,10 +3,11 @@ const http = require('http')
 // Require fs module
 const fs = require('fs')
 // Require minimist module (make sure you install this one via npm).
-// Use minimist to process one argument `--port=` on the command line after `node server.js`.
-
+// Use minimist to process one argument `--port=` on the command line after `node server.js`
+const args = require('minimist')(process.argv.slice(2))
+args["port"] 
 // Define allowed argument name 'port'.
-
+const port = args.port || process.env.PORT || 3000
 // Define a const `port` using the argument from the command line. 
 // Make this const default to port 3000 if there is no argument given for `--port`.
 
@@ -28,7 +29,7 @@ const fs = require('fs')
 // 1. status code 200, 
 // 2. set a header with content type `text/html`, and 
 // 3. end with the data that you are reading in from ./www/index.html.
-
+const server = http.createServer((req,res) )
 
 
 
