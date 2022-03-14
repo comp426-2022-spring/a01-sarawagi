@@ -10,7 +10,7 @@ args["port"]
 const port = args.port || process.env.PORT || 3000
 // Define a const `port` using the argument from the command line. 
 // Make this const default to port 3000 if there is no argument given for `--port`.
-
+fs.readFile("./www/index.html","utf8", (err, data) => {
 // Use the fs module to create an arrow function using `fs.readFile`.
 // Use the documentation for the Node.js `fs` module. 
 // The function must read a file located at `./www/index.html` and do some stuff with it.
@@ -18,7 +18,11 @@ const port = args.port || process.env.PORT || 3000
 
 // If there is an error, put it on the console error, return, and exit with error code 1. 
 // Do not be nice about exiting.
-
+if (err) {
+    console.error(err)
+    return
+    process.exit(1)
+}
 
 
 
@@ -29,15 +33,22 @@ const port = args.port || process.env.PORT || 3000
 // 1. status code 200, 
 // 2. set a header with content type `text/html`, and 
 // 3. end with the data that you are reading in from ./www/index.html.
-const server = http.createServer((req,res) )
+const server = http.createServer((req, res) => {
+    res.statusCode = 200
+    res.setHeader('Content-Type', 'test/html')
+    res.end(data)
+})
 
 
 
 
 // Start the `server` const listening on the port defined by argument in your `port` const. 
 // Put the exact message `Server listening on port ${port}` on the console log. 
-
+server.listen(port, () => {
+    console.log(`Server running at port ${port}`)
+})
 
 
 
 // That's it! You're all done!
+})
